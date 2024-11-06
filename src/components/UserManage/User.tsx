@@ -9,7 +9,7 @@ type Props = {
 };
 
 const User: React.FC<Props> = ({ userInfo }) => {
-    const { modalRef, isVisible, openModal, closeModal } = useModal();
+    const { Modal, openModal, closeModal } = useModal();
 
     return (
         <div className="h-12 flex w-full gap-3">
@@ -29,11 +29,9 @@ const User: React.FC<Props> = ({ userInfo }) => {
                 </span>
             </Label>
             <ActionBtn handleModal={openModal} />
-            {isVisible && (
-                <div ref={modalRef}>
-                    <ActionModal closeModal={closeModal} />
-                </div>
-            )}
+            <Modal>
+                <ActionModal closeModal={closeModal} />
+            </Modal>
         </div>
     );
 };
