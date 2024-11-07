@@ -1,45 +1,28 @@
+import { useState } from "react";
 import ModalFrame from "../../Modal/ModalFrame";
-import ActionNameBtn from "./ActionNameBtn";
+import InputChip from "./InputChip";
+import Actions from "./Actions";
+import { InputAction } from "./types";
 
 type Props = {
     closeModal: () => void;
 };
 
 const ActionModal: React.FC<Props> = ({ closeModal }) => {
+    const [isInputOpen, setIsInputOpen] = useState<InputAction | null>(null);
+    const openInput = (kind: InputAction) => {
+        setIsInputOpen(kind);
+    }
+
     return (
         <ModalFrame modalName="Action" closeModal={closeModal}>
-            <ul className="flex flex-col gap-3">
-                <li>
-                    <ActionNameBtn action={() => console.log("Action 1")}>
-                        Check
-                    </ActionNameBtn>
-                </li>
-                <li>
-                    <ActionNameBtn action={() => console.log("Action 2")}>
-                        Bet
-                    </ActionNameBtn>
-                </li>
-                <li>
-                    <ActionNameBtn action={() => console.log("Action 3")}>
-                        Call
-                    </ActionNameBtn>
-                </li>
-                <li>
-                    <ActionNameBtn action={() => console.log("Action 4")}>
-                        Raise
-                    </ActionNameBtn>
-                </li>
-                <li>
-                    <ActionNameBtn action={() => console.log("Action 4")}>
-                        Fold
-                    </ActionNameBtn>
-                </li>
-                <li>
-                    <ActionNameBtn action={() => console.log("Action 5")}>
-                        All In
-                    </ActionNameBtn>
-                </li>
-            </ul>
+            <div className="h-72 flex justify-center">
+                {!isInputOpen ? (
+                    <Actions openInput={openInput} closeModal={closeModal} />
+                ) : (
+                    <InputChip kind={isInputOpen} action={() => console.log("Bet")} />
+                )}
+            </div>
         </ModalFrame>
     );
 };

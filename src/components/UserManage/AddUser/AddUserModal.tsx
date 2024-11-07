@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ModalFrame from "../../Modal/ModalFrame"
+import InputForm from "../../InputForm";
 
 type Props = {
     addUserInfo: (name: string, chip: number) => void;
@@ -24,11 +25,9 @@ const AddUserModal: React.FC<Props> = ({ addUserInfo, closeModal }) => {
                     <label htmlFor="name" className="text-zinc-400">
                         Name
                     </label>
-                    <input
-                        type="text"
-                        id="name"
-                        value={name}
+                    <InputForm
                         onChange={(e) => setName(e.target.value)}
+                        value={name}
                         className="p-1 rounded-md"
                     />
                 </div>
@@ -36,12 +35,11 @@ const AddUserModal: React.FC<Props> = ({ addUserInfo, closeModal }) => {
                     <label htmlFor="chip" className="text-zinc-400">
                         Chip
                     </label>
-                    <input
-                        type="number"
-                        id="chip"
-                        value={chip}
+                    <InputForm
                         onChange={(e) => setChip(Number(e.target.value))}
+                        value={chip}
                         className="p-1 rounded-md"
+                        isNumber={true}
                     />
                 </div>
                 <div className="flex justify-center">

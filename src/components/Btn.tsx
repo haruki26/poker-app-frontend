@@ -1,5 +1,5 @@
 type Props = {
-    callback: () => void;
+    onClick: () => void;
     children: React.ReactNode;
     className?: string;
     bgColor?: string;
@@ -8,7 +8,7 @@ type Props = {
 };
 
 const Btn: React.FC<Props> = ({
-    callback,
+    onClick,
     children,
     className = "",
     bgColor = "bg-green-500",
@@ -25,7 +25,7 @@ const Btn: React.FC<Props> = ({
         <div className="h-full flex items-center justify-center">
             <button
             className={`${bgColor} hover:${hoverBgColor} rounded-md ${className}`}
-            onClick={callback}
+            onClick={onClick}
             disabled={disabled}
             >
                 <span className="text-gray-900 font-bold py-2 px-4">

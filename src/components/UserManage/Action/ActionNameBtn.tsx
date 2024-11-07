@@ -7,7 +7,7 @@ type Props = {
 
 const ActionNameBtn: React.FC<Props> = ({ action, children }) => {
     return (
-        <Btn callback={action} className="w-32 py-1">
+        <Btn onClick={action} className="w-32 py-1">
             <span className="text-gray-700 text-2xl font-extrabol p-2">
                 {children}
             </span>

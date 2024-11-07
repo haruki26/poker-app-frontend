@@ -23,7 +23,7 @@ const UserManage: React.FC<Props> = ({ userInfo }) => {
                     </li>
                 ))}
             </ul>
-            <Btn callback={openModal} bgColor="bg-slate-700" className="py-1">
+            <Btn onClick={openModal} bgColor="bg-slate-700" className="py-1">
                 <span className="text-zinc-300 text-xl font-extrabol p-2">
                     Add User
                 </span>
