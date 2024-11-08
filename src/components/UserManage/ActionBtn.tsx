@@ -6,7 +6,7 @@ type Props = {
 
 const ActionBtn: React.FC<Props> = ({ handleModal }) => {
     return (
-        <Btn onClick={handleModal} className="p-1 bg-green-500 hover:bg-green-700">
+        <Btn onClick={handleModal} className="p-1">
             <span>Action</span>
         </Btn>
     );

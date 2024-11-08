@@ -1,7 +1,9 @@
+
 type Props = {
-    onClick: () => void;
     children: React.ReactNode;
+    onClick?: () => void;
     className?: string;
+    type?: React.ButtonHTMLAttributes<HTMLButtonElement>["type"];
     bgColor?: string;
     hoverBgColor?: string;
     disabled?: boolean;
@@ -11,6 +13,7 @@ const Btn: React.FC<Props> = ({
     onClick,
     children,
     className = "",
+    type=undefined,
     bgColor = "bg-green-500",
     hoverBgColor = "bg-green-700",
     disabled = false,
@@ -22,11 +25,12 @@ const Btn: React.FC<Props> = ({
     };
 
     return (
-        <div className="h-full flex items-center justify-center">
+        <div className="w-full flex items-center justify-center">
             <button
             className={`${bgColor} hover:${hoverBgColor} rounded-md ${className}`}
             onClick={onClick}
             disabled={disabled}
+            type={type}
             >
                 <span className="text-gray-900 font-bold py-2 px-4">
                     {children}

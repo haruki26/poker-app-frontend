@@ -13,7 +13,7 @@ const User: React.FC<Props> = ({ userInfo }) => {
 
     return (
         <div className="h-12 flex w-full gap-3">
-            <Label className="w-12">
+            <Label className="w-32">
                 <span className="text-3xl">
                     {userInfo.role}
                 </span>

@@ -1,27 +1,25 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import ModalFrame from "../../Modal/ModalFrame"
 import InputForm from "../../InputForm";
+import Btn from "../../Btn";
+import { ManageContext } from "../ManageContext";
 
-type Props = {
-    addUserInfo: (name: string, chip: number) => void;
-    closeModal: () => void;
-};
-
-const AddUserModal: React.FC<Props> = ({ addUserInfo, closeModal }) => {
+const AddUserModal: React.FC = () => {
     const [name, setName] = useState<string>("");
     const [chip, setChip] = useState<number>(200);
+    const { handleAddUser, closeModal } = useContext(ManageContext);
 
     const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        addUserInfo(name, chip);
+        handleAddUser(name, chip);
         console.log("Add User");
         closeModal();
     };
 
     return (
         <ModalFrame modalName="Add User" closeModal={closeModal}>
-            <form onSubmit={handleFormSubmit}>
-                <div className="flex flex-col gap-2">
+            <form className="flex flex-col gap-3" onSubmit={handleFormSubmit}>
+                <div className="flex flex-col gap-1">
                     <label htmlFor="name" className="text-zinc-400">
                         Name
                     </label>
@@ -31,7 +29,7 @@ const AddUserModal: React.FC<Props> = ({ addUserInfo, closeModal }) => {
                         className="p-1 rounded-md"
                     />
                 </div>
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-1">
                     <label htmlFor="chip" className="text-zinc-400">
                         Chip
                     </label>
@@ -43,14 +41,14 @@ const AddUserModal: React.FC<Props> = ({ addUserInfo, closeModal }) => {
                     />
                 </div>
                 <div className="flex justify-center">
-                    <button
+                    <Btn
                         type="submit"
-                        className="bg-slate-700 p-1 rounded-md"
+                        className="p-1 rounded-md"
                     >
                         <span className="text-zinc-300 text-xl font-extrabol p-2">
                             Add
                         </span>
-                    </button>
+                    </Btn>
                 </div>
             </form>
         </ModalFrame>

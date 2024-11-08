@@ -1,13 +1,15 @@
 import { useState } from "react";
 import InputForm from "../../InputForm";
 import { InputAction } from "./types";
+import Btn from "../../Btn";
 
 type Props = {
     kind: InputAction;
     action: () => void;
+    closeModal: () => void;
 };
 
-const InputChip: React.FC<Props> = ({ kind, action }) => {
+const InputChip: React.FC<Props> = ({ kind, action, closeModal }) => {
     const [chip, setChip] = useState<number>(0);
 
     const handleChip = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,25 +21,23 @@ const InputChip: React.FC<Props> = ({ kind, action }) => {
         e.preventDefault();
         console.log(chip);
         action();
+        closeModal();
     }
 
     return (
         <form
-            className="flex flex-col gap-5 justify-center items-center"
-            onSubmit={(e) => handleSubmit(e)}
-        >
+        className="flex flex-col gap-2 justify-center items-center"
+        onSubmit={(e) => handleSubmit(e)}>
             <InputForm
-                value={chip}
-                onChange={(e) => handleChip(e)}
-                isNumber={true}
-                className="p-1 rounded-md"
+            value={chip}
+            onChange={(e) => handleChip(e)}
+            isNumber={true}
             />
-            <button
-                type="submit"
-                className="p-1 w-24 bg-green-500 hover:bg-green-700 rounded-md"
-            >
+            <Btn
+            type="submit"
+            className="p-1 w-24">
                 {kind.toUpperCase()}
-            </button>
+            </Btn>
         </form>
     );
 };

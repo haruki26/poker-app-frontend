@@ -16,7 +16,12 @@ const ModalFrame: React.FC<Props> = ({ modalName, closeModal, children }) => {
                 {children}
             </div>
             <div className="flex justify-center my-4">
-                <Btn onClick={closeModal} bgColor="bg-slate-700" className="w-24 py-1">
+                <Btn
+                onClick={closeModal}
+                className="w-24 py-1"
+                bgColor="bg-slate-700"
+                hoverBgColor="bg-slate-900"
+                >
                     <span className="text-zinc-300 text-xl font-extrabol p-2">
                         Close
                     </span>

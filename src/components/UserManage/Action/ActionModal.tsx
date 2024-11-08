@@ -20,7 +20,11 @@ const ActionModal: React.FC<Props> = ({ closeModal }) => {
                 {!isInputOpen ? (
                     <Actions openInput={openInput} closeModal={closeModal} />
                 ) : (
-                    <InputChip kind={isInputOpen} action={() => console.log("Bet")} />
+                    <InputChip
+                    kind={isInputOpen}
+                    action={() => console.log(`Action: ${isInputOpen}`)}
+                    closeModal={closeModal}
+                    />
                 )}
             </div>
         </ModalFrame>
