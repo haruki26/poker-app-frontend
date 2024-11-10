@@ -1,7 +1,7 @@
 import { UserInfo } from "../../types";
 import { useModal } from "../Modal/useModal";
 import ActionBtn from "./ActionBtn";
-import ActionModal from "./Action/ActionModal";
+import ActionModal from "./ActionModal/ActionModal";
 import Label from "./Label";
 
 type Props = {

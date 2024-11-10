@@ -5,12 +5,12 @@ type ManageContextType = {
     userInfo: UserInfo[];
     handleAddUser: (name: string, chip: number) => void;
     handleRemoveUser: (index: number) => void;
-    closeModal: () => void;
+    handleCloseModal: () => void;
 };
 
 export const ManageContext = createContext<ManageContextType>({
     userInfo: [],
     handleAddUser: () => {},
     handleRemoveUser: () => {},
-    closeModal: () => {},
+    handleCloseModal: () => {},
 });

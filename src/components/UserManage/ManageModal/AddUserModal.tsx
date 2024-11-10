@@ -7,17 +7,17 @@ import { ManageContext } from "../ManageContext";
 const AddUserModal: React.FC = () => {
     const [name, setName] = useState<string>("");
     const [chip, setChip] = useState<number>(200);
-    const { handleAddUser, closeModal } = useContext(ManageContext);
+    const { handleAddUser, handleCloseModal } = useContext(ManageContext);
 
     const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         handleAddUser(name, chip);
         console.log("Add User");
-        closeModal();
+        handleCloseModal();
     };
 
     return (
-        <ModalFrame modalName="Add User" closeModal={closeModal}>
+        <ModalFrame modalName="Add User" closeModal={handleCloseModal}>
             <form className="flex flex-col gap-3" onSubmit={handleFormSubmit}>
                 <div className="flex flex-col gap-1">
                     <label htmlFor="name" className="text-zinc-400">
