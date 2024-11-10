@@ -2,7 +2,7 @@ import { Role } from "./types";
 
 export class User {
     public name: string;
-    private chip: number;
+    private _chip: number;
     public role: Role | "" = "";
     public isPlaying: boolean = false;
 
@@ -11,20 +11,21 @@ export class User {
         chip: number,
     ) {
         this.name = name;
-        this.chip = 0;
-
-        this.setChip(chip);
-    };
-
-    public getChip() {
-        return this.chip;
-    };
-
-    public setChip(chip: number) {
         if (chip < 0) {
             throw new Error("Chip cannot be negative");
         };
-        this.chip = chip;
+        this._chip = chip;
+    };
+
+    get chip() : number {
+        return this._chip;
+    };
+
+    set chip(chip: number) {
+        if (chip < 0) {
+            throw new Error("Chip cannot be negative");
+        };
+        this._chip = chip;
     };
 
     public play() {
@@ -32,14 +33,14 @@ export class User {
     }
 
     public bet(amount: number) {
-        if (amount > this.chip) {
+        if (amount > this._chip) {
             throw new Error("Not enough chip");
         };
-        this.chip -= amount;
+        this._chip -= amount;
     };
 
     public allIn() {
-        this.bet(this.chip);
+        this.bet(this._chip);
     };
 
     public fold() {
@@ -47,7 +48,7 @@ export class User {
     };
     
     public win(amount: number) {
-        this.chip += amount;
+        this._chip += amount;
     };
 }
 

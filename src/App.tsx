@@ -30,7 +30,7 @@ const App: React.FC = () => {
     return (
         <div className="m-1 h-full bg-green-50">
             <div className="h-1/4">
-                <GameInfo potSize={game.getPot()} rate={game.getCurrentBet()} />
+                <GameInfo potSize={game.pot} rate={game.currentBet} />
             </div>
             <div className="h-3/4">
                 <UserManage userManager={game.userManager} />

@@ -36,7 +36,7 @@ const UserManage: React.FC<Props> = ({ userManager }) => {
                         <li key={index}>
                             <User
                                 name={user.name}
-                                chip={user.getChip()}
+                                chip={user.chip}
                                 role={user.role}
                             />
                         </li>

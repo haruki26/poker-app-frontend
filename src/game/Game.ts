@@ -1,4 +1,4 @@
-import { Role } from "./types";
+import { Action, Role } from "./types";
 import { User } from "./User";
 
 export class UserManager {
@@ -57,28 +57,28 @@ export class UserManager {
 
 export class Game {
     public userManager = new UserManager();
-    private pot = 0;
-    private currentBet = 0;
-    private dealerButton = 0;
-    private blind = 1;
+    private _pot = 0;
+    private _currentBet = 0;
+    private _dealerButton = 0;
+    private _blind = 1;
 
-    public getPot() {
-        return this.pot;
+    get pot(): number {
+        return this._pot;
     };
 
-    public getCurrentBet() {
-        return this.currentBet;
+    get currentBet(): number {
+        return this._currentBet;
     };
 
-    public getSmallBlind() {
-        return this.blind;
+    get smallBlind(): number {
+        return this._blind;
     };
 
-    public setBlind(amount: number) {
+    set blind(amount: number) {
         if (amount < 1) {
             throw new Error("0より小さい値は設定できません");
         };
-        this.blind = amount;
+        this._blind = amount;
     };
 
     public getPlayers() {
@@ -95,40 +95,72 @@ export class Game {
 
     public setDealerButton(index: number) {
         this.userManager.setRole(index);
-        this.dealerButton = this.userManager.users.findIndex((user) => user.role === "DB");
+        this._dealerButton = this.userManager.users.findIndex((user) => user.role === "DB");
     };
 
-    public bet(index: number, amount: number) {
-        if (amount < this.currentBet) {
+    public action(index: number, action: Action, amount?: number) {
+        const amountChecker = (value: number | undefined): number => {
+            if (value !== undefined) {
+                return value;
+            } else {
+                throw new Error("ベット額を入力してください");
+            }
+        }
+
+        switch (action) {
+            case "bet":
+                this.bet(index, amountChecker(amount));
+                break;
+            case "call":
+                this.call(index);
+                break;
+            case "raise":
+                this.raise(index, amountChecker(amount));
+                break;
+            case "all-in":
+                this.allIn(index);
+                break;
+            case "fold":
+                this.fold(index);
+                break;
+            case "check":
+                break;
+            default:
+                throw new Error("不正なアクションです");
+        };
+    };
+
+    private bet(index: number, amount: number) {
+        if (amount < this._currentBet) {
             throw new Error("ベット額が足りません");
         };
 
         this.userManager.users[index].bet(amount);
-        this.pot += amount;
-        this.currentBet = amount;
+        this._pot += amount;
+        this._currentBet = amount;
     };
 
-    public call(index: number) {
-        this.bet(index, this.currentBet);
-        this.pot += this.currentBet;
+    private call(index: number) {
+        this.bet(index, this._currentBet);
+        this._pot += this._currentBet;
     };
 
-    public raise(index: number, amount: number) {
-        if (amount < this.currentBet) {
+    private raise(index: number, amount: number) {
+        if (amount < this._currentBet) {
             throw new Error("ベット額が足りません");
         };
 
         this.bet(index, amount);
-        this.pot += amount;
-        this.currentBet = amount;
+        this._pot += amount;
+        this._currentBet = amount;
     };
 
-    public allIn(index: number) {
+    private allIn(index: number) {
         this.userManager.users[index].allIn();
-        this.pot += this.userManager.users[index].getChip();
+        this._pot += this.userManager.users[index].chip;
     };
 
-    public fold(index: number) {
+    private fold(index: number) {
         this.userManager.users[index].fold();
     };
 
@@ -137,18 +169,18 @@ export class Game {
     };
     
     private blindBet() {
-        this.bet(1, this.blind);
-        this.bet(2, this.blind * 2);
-        this.pot += this.blind * 3;
-        this.currentBet = this.blind * 2
+        this.bet(1, this._blind);
+        this.bet(2, this._blind * 2);
+        this._pot += this._blind * 3;
+        this._currentBet = this._blind * 2
     };
 
     public endGame() {
         this.userManager.users.forEach((user) => {
             user.isPlaying = false;
         });
-        this.userManager.setRole(this.dealerButton + 1);
-        this.pot = 0;
-        this.currentBet = 0;
+        this.userManager.setRole(this._dealerButton + 1);
+        this._pot = 0;
+        this._currentBet = 0;
     };
 };
