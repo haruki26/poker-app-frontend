@@ -1,23 +1,29 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import ModalFrame from "../../Modal/ModalFrame"
 import InputForm from "../../InputForm";
 import Btn from "../../Btn";
-import { ManageContext } from "../ManageContext";
 
-const AddUserModal: React.FC = () => {
+export type AddUserModalProps = {
+    handleAddUser: (name: string, chip: number) => void;
+    closeModal: () => void;
+};
+
+const AddUserModal: React.FC<AddUserModalProps> = ({
+    handleAddUser,
+    closeModal
+}) => {
     const [name, setName] = useState<string>("");
     const [chip, setChip] = useState<number>(200);
-    const { handleAddUser, handleCloseModal } = useContext(ManageContext);
 
     const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         handleAddUser(name, chip);
         console.log("Add User");
-        handleCloseModal();
+        closeModal();
     };
 
     return (
-        <ModalFrame modalName="Add User" closeModal={handleCloseModal}>
+        <ModalFrame modalName="Add User" closeModal={closeModal}>
             <form className="flex flex-col gap-3" onSubmit={handleFormSubmit}>
                 <div className="flex flex-col gap-1">
                     <label htmlFor="name" className="text-zinc-400">

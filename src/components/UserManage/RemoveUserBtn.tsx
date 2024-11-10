@@ -1,14 +1,26 @@
 import Btn from "../Btn";
-import RemoveUserModal from "./ManageModal/RemoveUserModal";
+import RemoveUserModal, { RemoveModalProps } from "./ManageModal/RemoveUserModal";
 
 type Props = {
     setContent: React.Dispatch<React.SetStateAction<React.ReactNode>>;
     openModal: () => void;
-}
+} & RemoveModalProps;
 
-const RemoveUserBtn: React.FC<Props> = ({ setContent, openModal}) => {
+const RemoveUserBtn: React.FC<Props> = ({
+    setContent,
+    openModal,
+    userNames,
+    handleRemoveUser,
+    closeModal
+}) => {
     const handleClick = () => {
-        setContent(<RemoveUserModal />);
+        setContent(
+            <RemoveUserModal
+                userNames={userNames}
+                handleRemoveUser={handleRemoveUser}
+                closeModal={closeModal}
+            />
+        );
         openModal();
     };
 

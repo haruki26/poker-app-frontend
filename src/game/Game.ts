@@ -1,7 +1,7 @@
 import { Role } from "./types";
-import User from "./User";
+import { User } from "./User";
 
-class UserManager {
+export class UserManager {
     public users: User[] = [];
 
     public addUser(name: string, chip: number) {
@@ -17,7 +17,7 @@ class UserManager {
             this.users.splice(index, 1);
         } catch {
             throw new Error("ユーザーが存在しません");
-        }
+        };
     };
 
     public setRole(index: number) {
@@ -27,7 +27,7 @@ class UserManager {
 
         if (this.users.length < 2) {
             throw new Error("プレイヤーが2人未満です");
-        }
+        };
 
         this.users.forEach((user) => {
             user.role = "";
@@ -53,10 +53,10 @@ class UserManager {
             };
         };
     };
-}
+};
 
-class Game {
-    private userManager = new UserManager();
+export class Game {
+    public userManager = new UserManager();
     private pot = 0;
     private currentBet = 0;
     private dealerButton = 0;
@@ -77,7 +77,7 @@ class Game {
     public setBlind(amount: number) {
         if (amount < 1) {
             throw new Error("0より小さい値は設定できません");
-        }
+        };
         this.blind = amount;
     };
 
@@ -96,7 +96,7 @@ class Game {
     public setDealerButton(index: number) {
         this.userManager.setRole(index);
         this.dealerButton = this.userManager.users.findIndex((user) => user.role === "DB");
-    }
+    };
 
     public bet(index: number, amount: number) {
         if (amount < this.currentBet) {
@@ -152,5 +152,3 @@ class Game {
         this.currentBet = 0;
     };
 };
-
-export default Game;

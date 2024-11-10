@@ -1,14 +1,24 @@
 import Btn from "../Btn";
-import AddUserModal from "./ManageModal/AddUserModal";
+import AddUserModal, { AddUserModalProps } from "./ManageModal/AddUserModal";
 
 type Props = {
     setContent: React.Dispatch<React.SetStateAction<React.ReactNode>>;
     openModal: () => void;
-}
+} & AddUserModalProps;
 
-const AddUserBtn: React.FC<Props> = ({ setContent, openModal}) => {
+const AddUserBtn: React.FC<Props> = ({
+    setContent,
+    openModal,
+    handleAddUser,
+    closeModal
+}) => {
     const handleClick = () => {
-        setContent(<AddUserModal />);
+        setContent(
+            <AddUserModal
+                handleAddUser={handleAddUser}
+                closeModal={closeModal}
+            />
+        );
         openModal();
     };
 

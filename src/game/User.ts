@@ -1,6 +1,6 @@
 import { Role } from "./types";
 
-class User {
+export class User {
     public name: string;
     private chip: number;
     public role: Role | "" = "";

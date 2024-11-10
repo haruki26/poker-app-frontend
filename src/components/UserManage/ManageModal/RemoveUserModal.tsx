@@ -1,12 +1,18 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import Btn from "../../Btn";
 import ModalFrame from "../../Modal/ModalFrame";
-import { ManageContext } from "../ManageContext";
 
-const RemoveUserModal: React.FC = () => {
-    const { userInfo, handleRemoveUser, handleCloseModal } = useContext(ManageContext);
-    const userNames = userInfo.map(user => user.name);
+export type RemoveModalProps = {
+    userNames: string[];
+    handleRemoveUser: (index: number) => void;
+    closeModal: () => void;
+}
 
+const RemoveUserModal: React.FC<RemoveModalProps> = ({
+    userNames,
+    handleRemoveUser,
+    closeModal
+}) => {
     const [checked, setChecked] = useState<boolean[]>(new Array(userNames.length).fill(false));
 
     const handleChecked = (index: number) => {
@@ -26,11 +32,11 @@ const RemoveUserModal: React.FC = () => {
             }
         });
 
-        handleCloseModal();
+        closeModal();
     }
 
     return (
-        <ModalFrame modalName="Remove" closeModal={handleCloseModal}>
+        <ModalFrame modalName="Remove" closeModal={closeModal}>
             <div className="flex flex-col gap-3">
                 <form 
                 className="flex flex-col gap-3"

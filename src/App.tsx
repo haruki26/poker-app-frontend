@@ -1,44 +1,42 @@
 import GameInfo from "./components/GameInfo/GameInfo";
 import UserManage from "./components/UserManage/UserManage";
-import { UserInfo } from "./types"
+import { Game } from "./game/Game";
 
-const demoData: UserInfo[] = [
+const demoData = [
     {
         name: "hogehoge",
         chip: 200,
-        role: "DB",
     },
     {
         name: "fugafuga",
         chip: 200,
-        role: "SB",
     },
     {
         name: "piyopiyo",
         chip: 200,
-        role: "BB",
     },
     {
         name: "foobar",
         chip: 200,
-        role: "",
     }
 ];
 
-const info = {
-    potSize: 1234,
-    rate: 25,
-}
-
 const App: React.FC = () => {
+    const game = new Game();
+    demoData.forEach((data) => {
+        game.userManager.addUser(data.name, data.chip);
+    });
+    
     return (
-        <div className="m-1 h-screen bg-green-50">
+        <div className="m-1 h-full bg-green-50">
             <div className="h-1/4">
-                <GameInfo potSize={info.potSize} rate={info.rate} />
+                <GameInfo potSize={game.getPot()} rate={game.getCurrentBet()} />
             </div>
-            <UserManage userInfo={demoData} />
+            <div className="h-3/4">
+                <UserManage userManager={game.userManager} />
+            </div>
         </div>
     )
 }
 
-export default App
+export default App;
