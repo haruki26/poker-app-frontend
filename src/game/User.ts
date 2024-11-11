@@ -4,8 +4,8 @@ import { Role } from "./types";
 export class User {
     public name: string;
     private _chip: number;
-    public role: Role | "" = "";
-    public isPlaying: boolean = false;
+    public role: Role | "";
+    public isPlaying: boolean;
 
     constructor(
         name: string,
@@ -16,6 +16,8 @@ export class User {
             throw new Error("Chip cannot be negative");
         };
         this._chip = chip;
+        this.role = "";
+        this.isPlaying = true;
     };
 
     get chip() : number {
@@ -38,26 +40,27 @@ export class User {
         };
     }
 
-    public play() {
+    public play = () => {
         this.isPlaying = true;
     }
 
-    public bet(amount: number) {
+    public bet = (amount: number) => {
         if (amount > this._chip) {
+            console.log("Not enough chip");
             throw new Error("Not enough chip");
         };
         this._chip -= amount;
     };
 
-    public allIn() {
+    public allIn = () => {
         this.bet(this._chip);
     };
 
-    public fold() {
+    public fold = () => {
         this.isPlaying = false;
     };
     
-    public win(amount: number) {
+    public win = (amount: number) => {
         this._chip += amount;
     };
 };

@@ -1,2 +1,4 @@
-export type Action = "bet" | "raise" | "call" | "fold" | "check" | "all-in";
-export type InputAction = Extract<"bet" | "raise", Action>;
+import { ActionType } from "../../../game/types";
+
+export type InputAction = Extract<"bet" | "raise", ActionType>;
+export type NotInputAction = Exclude<ActionType, InputAction>;

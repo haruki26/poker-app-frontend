@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useModal } from "../Modal/useModal";
 import User from "./User/User";
 import AddUserBtn from "./AddUserBtn";
@@ -14,7 +14,11 @@ type Props = {
 const UserManage: React.FC<Props> = ({ userManager, action }) => {
     const [modalContent, setModalContent] = useState<React.ReactNode | null>(null);
     const { Modal, openModal, closeModal } = useModal();
-    const userInfo = userManager.users;
+    const [userInfo, setUserInfo] = useState(userManager.users);
+
+    useEffect(() => {
+        setUserInfo(userManager.users);
+    }, [userManager.users]);
 
     const handleCloseModal = () => {
         closeModal();
@@ -29,6 +33,7 @@ const UserManage: React.FC<Props> = ({ userManager, action }) => {
                         <li key={index}>
                             <User
                                 userInfo={user.userInfo}
+                                index={index}
                                 action={action}
                             />
                         </li>

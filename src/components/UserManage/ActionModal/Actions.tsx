@@ -1,16 +1,16 @@
 import ActionNameBtn from "./ActionNameBtn";
-import { InputAction } from "./types";
+import { InputAction, NotInputAction } from "./types";
 
 type Props = {
-    openInput: (kind: InputAction) => void;
-    closeModal: () => void;
+    openInput: (actionType: InputAction) => void;
+    action: (actionType: NotInputAction) => void;
 };
 
-const Actions: React.FC<Props> = ({ openInput, closeModal }) => {
+const Actions: React.FC<Props> = ({ openInput, action }) => {
     return (
         <ul className="flex flex-col gap-3">
             <li>
-                <ActionNameBtn action={closeModal}>
+                <ActionNameBtn action={() => action("check")}>
                     Check
                 </ActionNameBtn>
             </li>
@@ -20,7 +20,7 @@ const Actions: React.FC<Props> = ({ openInput, closeModal }) => {
                 </ActionNameBtn>
             </li>
             <li>
-                <ActionNameBtn action={closeModal}>
+                <ActionNameBtn action={() => action("call")}>
                     Call
                 </ActionNameBtn>
             </li>
@@ -30,12 +30,12 @@ const Actions: React.FC<Props> = ({ openInput, closeModal }) => {
                 </ActionNameBtn>
             </li>
             <li>
-                <ActionNameBtn action={closeModal}>
+                <ActionNameBtn action={() => action("fold")}>
                     Fold
                 </ActionNameBtn>
             </li>
             <li>
-                <ActionNameBtn action={closeModal}>
+                <ActionNameBtn action={() => action("all-in")}>
                     All In
                 </ActionNameBtn>
             </li>

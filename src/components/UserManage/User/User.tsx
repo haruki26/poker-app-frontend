@@ -3,18 +3,24 @@ import ActionBtn from "../ActionBtn";
 import ActionModal from "../ActionModal/ActionModal";
 import Label from "./Label";
 
-import { Action, UserInfo } from "../../../game/types";
+import { Action, ActionType, UserInfo } from "../../../game/types";
 
 type Props = {
     userInfo: UserInfo;
+    index: number;
     action: Action;
 };
 
 const User: React.FC<Props> = ({
     userInfo,
-    action
+    index,
+    action,
 }) => {
     const { Modal, openModal, closeModal } = useModal();
+
+    const handleAction = (actionType: ActionType, chip?: number) => {
+        action(index, actionType, chip);
+    };
 
     return (
         <div className="h-12 flex w-full gap-3">
@@ -35,7 +41,7 @@ const User: React.FC<Props> = ({
             </Label>
             <ActionBtn handleModal={openModal} />
             <Modal>
-                <ActionModal closeModal={closeModal} />
+                <ActionModal action={handleAction} closeModal={closeModal} />
             </Modal>
         </div>
     );

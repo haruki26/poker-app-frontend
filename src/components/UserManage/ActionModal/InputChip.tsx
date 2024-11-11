@@ -4,12 +4,11 @@ import { InputAction } from "./types";
 import Btn from "../../Btn";
 
 type Props = {
-    kind: InputAction;
-    action: () => void;
-    closeModal: () => void;
+    actionType: InputAction;
+    action: (chip: number) => void;
 };
 
-const InputChip: React.FC<Props> = ({ kind, action, closeModal }) => {
+const InputChip: React.FC<Props> = ({ actionType, action }) => {
     const [chip, setChip] = useState<number>(0);
 
     const handleChip = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,9 +18,7 @@ const InputChip: React.FC<Props> = ({ kind, action, closeModal }) => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(chip);
-        action();
-        closeModal();
+        action(chip);
     }
 
     return (
@@ -36,7 +33,7 @@ const InputChip: React.FC<Props> = ({ kind, action, closeModal }) => {
             <Btn
             type="submit"
             className="p-1 w-24">
-                {kind.toUpperCase()}
+                {actionType.toUpperCase()}
             </Btn>
         </form>
     );

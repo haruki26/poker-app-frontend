@@ -26,9 +26,9 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
         <ModalFrame modalName="Add User" closeModal={closeModal}>
             <form className="flex flex-col gap-3" onSubmit={handleFormSubmit}>
                 <div className="flex flex-col gap-1">
-                    <label htmlFor="name" className="text-zinc-400">
+                    <span className="text-zinc-400">
                         Name
-                    </label>
+                    </span>
                     <InputForm
                         onChange={(e) => setName(e.target.value)}
                         value={name}
@@ -36,9 +36,9 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
                     />
                 </div>
                 <div className="flex flex-col gap-1">
-                    <label htmlFor="chip" className="text-zinc-400">
+                    <span className="text-zinc-400">
                         Chip
-                    </label>
+                    </span>
                     <InputForm
                         onChange={(e) => setChip(Number(e.target.value))}
                         value={chip}
