@@ -1,3 +1,4 @@
+import { UserInfo } from "./types";
 import { Role } from "./types";
 
 export class User {
@@ -28,6 +29,15 @@ export class User {
         this._chip = chip;
     };
 
+    get userInfo(): UserInfo {
+        return {
+            name: this.name,
+            chip: this._chip,
+            role: this.role,
+            isPlaying: this.isPlaying,
+        };
+    }
+
     public play() {
         this.isPlaying = true;
     }
@@ -50,6 +60,4 @@ export class User {
     public win(amount: number) {
         this._chip += amount;
     };
-}
-
-export default User;
+};

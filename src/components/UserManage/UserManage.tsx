@@ -1,32 +1,25 @@
 import { useState } from "react";
 import { useModal } from "../Modal/useModal";
-import User from "./User";
+import User from "./User/User";
 import AddUserBtn from "./AddUserBtn";
 import RemoveUserBtn from "./RemoveUserBtn";
 import { UserManager } from "../../game/Game";
-
+import { Action } from "../../game/types";
 
 type Props = {
     userManager: UserManager;
+    action: Action;
 };
 
-const UserManage: React.FC<Props> = ({ userManager }) => {
+const UserManage: React.FC<Props> = ({ userManager, action }) => {
     const [modalContent, setModalContent] = useState<React.ReactNode | null>(null);
     const { Modal, openModal, closeModal } = useModal();
     const userInfo = userManager.users;
 
-    const handleAddUser = (name: string, chip: number) => {
-        userManager.addUser(name, chip);
-    }
-
-    const handleRemoveUser = (index: number) => {
-        userManager.removeUser(index);
-    }
-
     const handleCloseModal = () => {
         closeModal();
         setModalContent(null);
-    }
+    };
 
     return (
         <div className="p-2 bg-green-100 border border-slate-950 rounded-md">
@@ -35,9 +28,8 @@ const UserManage: React.FC<Props> = ({ userManager }) => {
                     {userInfo.map((user, index) => (
                         <li key={index}>
                             <User
-                                name={user.name}
-                                chip={user.chip}
-                                role={user.role}
+                                userInfo={user.userInfo}
+                                action={action}
                             />
                         </li>
                     ))}
@@ -46,14 +38,14 @@ const UserManage: React.FC<Props> = ({ userManager }) => {
                     <AddUserBtn
                         setContent={setModalContent}
                         openModal={openModal}
-                        handleAddUser={handleAddUser}
+                        handleAddUser={userManager.addUser}
                         closeModal={handleCloseModal}
                     />
                     <RemoveUserBtn
                         setContent={setModalContent}
                         openModal={openModal}
                         userNames={userInfo.map((user) => user.name)}
-                        handleRemoveUser={handleRemoveUser}
+                        handleRemoveUser={userManager.removeUser}
                         closeModal={handleCloseModal}
                     />
                 </div>
