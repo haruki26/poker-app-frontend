@@ -69,6 +69,10 @@ export class UserManager {
     public getUserInfo = (index: number): UserInfo => {
         return this.users[index].userInfo;
     };
+
+    public getUserNames = (): string[] => {
+        return this.users.map((user) => user.userInfo.name);
+    }
 };
 
 export class Game {
@@ -110,7 +114,10 @@ export class Game {
     };
 
     public addUser = (name: string, chip: number) => {
+        console.log(this.userManager.users);
         this.userManager.addUser(name, chip);
+        this.setDealerButton(this._dealerButton);
+        console.log(this.userManager.users);
     };
 
     public removeUser = (index: number) => {
@@ -119,7 +126,10 @@ export class Game {
 
     public setDealerButton = (index: number) => {
         this.userManager.setRole(index);
-        this._dealerButton = this.userManager.users.findIndex((user) => user.role === "DB");
+        this._dealerButton = this.userManager.users.findIndex(
+            (user) => user.userInfo.role === "DB"
+        );
+        console.log(this._dealerButton)
     };
 
     public action = (index: number, action: ActionType, amount?: number) => {
@@ -153,7 +163,6 @@ export class Game {
                 throw new Error("不正なアクションです");
         };
         console.log(this._pot, this._currentBet);
-        console.log(this.userManager.getUserInfo(index));
     };
 
     private _bet = (index: number, amount: number) => {
@@ -189,15 +198,23 @@ export class Game {
     };
 
     public startGame = () => {
+        this.userManager.users.forEach((user) => {
+            user.play();
+        });
         this._blindBet();
+        console.log("Game Start");
     };
     
     private _blindBet = () => {
-        this._bet(1, this._blind);
-        this._bet(2, this._blind * 2);
+        const sb = this.userManager.users.findIndex((user) => user.userInfo.role === "SB");
+        const bb = this.userManager.users.findIndex((user) => user.userInfo.role === "BB");
+
+        this._bet(sb, this._blind);
+        this._bet(bb, this._blind * 2);
     };
 
-    public endGame = () => {
+    public endGame = (index: number) => {
+        this.userManager.users[index].win(this._pot);
         this.userManager.users.forEach((user) => {
             user.isPlaying = false;
         });
@@ -205,16 +222,4 @@ export class Game {
         this._pot = 0;
         this._currentBet = 0;
     };
-
-    public on = (event: "update", callback: () => void) => {
-        if (event === "update") {
-            callback();
-        };
-    }
-
-    public off = (event: "update", callback: () => void) => {
-        if (event === "update") {
-            callback();
-        };
-    }
 };

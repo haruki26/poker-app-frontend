@@ -18,7 +18,6 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
     const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         handleAddUser(name, chip);
-        console.log("Add User");
         closeModal();
     };
 

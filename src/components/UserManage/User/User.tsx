@@ -23,6 +23,7 @@ const User: React.FC<Props> = ({
     };
 
     return (
+        <>
         <div className="h-12 flex w-full gap-3">
             <Label className="w-32">
                 <span className="text-3xl">
@@ -40,10 +41,11 @@ const User: React.FC<Props> = ({
                 </span>
             </Label>
             <ActionBtn handleModal={openModal} />
-            <Modal>
-                <ActionModal action={handleAction} closeModal={closeModal} />
-            </Modal>
         </div>
+        <Modal>
+            <ActionModal action={handleAction} closeModal={closeModal} />
+        </Modal>
+        </>
     );
 };
 

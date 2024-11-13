@@ -1,65 +1,36 @@
-import { useMemo, useState } from "react";
 import UserManage from "./components/UserManage/UserManage";
-import { Game } from "./game/Game";
-import { ActionType, GameStatus } from "./game/types";
 import GameInfo from "./components/GameInfo/GameInfo";
-
-const demoData = [
-    {
-        name: "hogehoge",
-        chip: 200,
-    },
-    {
-        name: "fugafuga",
-        chip: 200,
-    },
-    {
-        name: "piyopiyo",
-        chip: 200,
-    },
-    {
-        name: "foobar",
-        chip: 200,
-    }
-];
+import GameStartBtn from "./components/GameCtlBtn/GameStartBtn";
+import GameEndBtn from "./components/GameCtlBtn/GameEndBtn";
+import { useGame } from "./hook/useGame";
+import setting from "./../public/setting.svg"
 
 const App: React.FC = () => {
-    const game = useMemo(() => {
-        const newGame = new Game();
-        demoData.forEach((data) => {
-            newGame.userManager.addUser(data.name, data.chip);
-        });
-        return newGame;
-    }, []);
-    
-    const [gameState, setGameState] = useState<GameStatus>({
-        pot: game.pot,
-        currentBet: game.currentBet,
-    });
+    const { game, gameState, handleAction, handleStartGame, handleEndGame } = useGame();
 
-    const handleAction = (index: number, action: ActionType, amount?: number) => {
-        game.action(index, action, amount);
-        setGameState({
-            pot: game.pot,
-            currentBet: game.currentBet,
-        });
-    }
-
-    // game.setDealerButton(0);
-    // game.startGame();
-    // game.action(0, "bet", 10);
-    // game.action(1, "call");
-    // game.action(2, "raise", 20);
-    // game.action(3, "all-in");
-
+    game.setDealerButton(3);
     
     return (
-        <div className="m-1 h-full bg-green-50">
+        <div className="h-svh p-1 bg-green-500">
             <div className="h-1/4">
-                <GameInfo potSize={gameState.pot} rate={gameState.currentBet} />
+                <div className="h-1/4 w-full flex justify-end p-2">
+                    <img src={setting} alt="setting" className="w-10 h-10" />
+                </div>
+                <div className="h-3/4">
+                    <GameInfo potSize={gameState.pot} rate={gameState.currentBet} />
+                </div>
             </div>
-            <div className="h-3/4">
-                <UserManage userManager={game.userManager} action={handleAction} />
+            <div className="h-3/4 flex flex-col gap-5 p-1">
+                <div className="h-5/6">
+                    <UserManage game={game} action={handleAction} />
+                </div>
+                <div className="h-1/6 flex justify-between">
+                    <GameStartBtn startGame={handleStartGame} />
+                    <GameEndBtn
+                        userNames={game.userManager.getUserNames()}
+                        endGame={handleEndGame}
+                    />
+                </div>
             </div>
         </div>
     )
