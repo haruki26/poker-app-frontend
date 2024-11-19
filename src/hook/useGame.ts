@@ -1,6 +1,6 @@
 import { useMemo, useState, useEffect } from "react";
 import { Game } from "../game/Game";
-import { GameStatus, ActionType } from "../game/types";
+import type { GameStatus, ActionType } from "../game/types";
 
 const demoData = [
     {
@@ -47,6 +47,11 @@ export const useGame = () => {
         updateGameState();
     };
 
+    const handleNextStep = () => {
+        game.nextStpe();
+        updateGameState();
+    }
+
     const handleEndGame = (index: number) => {
         game.endGame(index);
         updateGameState();
@@ -75,6 +80,7 @@ export const useGame = () => {
         game,
         gameState,
         handleStartGame,
+        handleNextStep,
         handleEndGame,
         handleAction,
     };

@@ -36,7 +36,7 @@ const InputForm: React.FC<Props> = ({
     };
 
     return (
-        <div className="flex flex-col gap-1 w-full h-10">
+        <div className="flex flex-col gap-1 w-full h-12">
             <input
                 type="text"
                 value={value}

@@ -1,26 +1,27 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useModal } from "../Modal/useModal";
 import User from "./User/User";
 import AddUserBtn from "./AddUserBtn";
 import RemoveUserBtn from "./RemoveUserBtn";
-import { Game } from "../../game/Game";
-import { Action } from "../../game/types";
+import { UserManager } from "../../game/Game";
+import type { Action } from "../../game/types";
 
 type Props = {
-    game: Game;
+    userManager: UserManager;
     action: Action;
 };
 
-const UserManage: React.FC<Props> = ({ game, action }) => {
-    const [modalContent, setModalContent] = useState<React.ReactNode | null>(null);
+const UserManage: React.FC<Props> = ({ userManager, action }) => {
     const { Modal, openModal, closeModal } = useModal();
-    const [userInfo, setUserInfo] = useState(game.userManager.users);
-
-    useEffect(() => {
-        setUserInfo(game.userManager.users);
-    }, [game.userManager.users]);
+    const [modalContent, setModalContent] = useState<React.ReactNode | null>(null);
+    
+    const [userInfo, setUserInfo] = useState(userManager.users);
 
     const handleCloseModal = () => {
+        if (userManager.users !== userInfo) {
+            setUserInfo(userManager.users);
+            console.log("update");
+        }
         closeModal();
         setModalContent(null);
     };
@@ -45,14 +46,14 @@ const UserManage: React.FC<Props> = ({ game, action }) => {
                 <AddUserBtn
                     setContent={setModalContent}
                     openModal={openModal}
-                    handleAddUser={game.addUser}
+                    handleAddUser={userManager.addUser}
                     closeModal={handleCloseModal}
                 />
                 <RemoveUserBtn
                     setContent={setModalContent}
                     openModal={openModal}
-                    userNames={game.userManager.getUserNames()}
-                    handleRemoveUser={game.userManager.removeUser}
+                    userNames={userManager.getUserNames()}
+                    handleRemoveUser={userManager.removeUser}
                     closeModal={handleCloseModal}
                 />
             </div>

@@ -17,7 +17,6 @@ const User: React.FC<Props> = ({
     action,
 }) => {
     const { Modal, openModal, closeModal } = useModal();
-
     const handleAction = (actionType: ActionType, chip?: number) => {
         action(index, actionType, chip);
     };
@@ -40,7 +39,7 @@ const User: React.FC<Props> = ({
                     {userInfo.chip}
                 </span>
             </Label>
-            <ActionBtn handleModal={openModal} />
+            <ActionBtn handleModal={openModal} isPlaying={userInfo.isPlaying} />
         </div>
         <Modal>
             <ActionModal action={handleAction} closeModal={closeModal} />

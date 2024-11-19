@@ -4,13 +4,22 @@ import GameStartBtn from "./components/GameCtlBtn/GameStartBtn";
 import GameEndBtn from "./components/GameCtlBtn/GameEndBtn";
 import { useGame } from "./hook/useGame";
 import setting from "./../public/setting.svg"
+import { useErrorModal } from "./hook/useErrorModal";
+import NextStepBtn from "./components/GameCtlBtn/NextStepBtn";
 
 const App: React.FC = () => {
-    const { game, gameState, handleAction, handleStartGame, handleEndGame } = useGame();
-
-    game.setDealerButton(3);
+    const {
+        game,
+        gameState,
+        handleAction,
+        handleStartGame,
+        handleNextStep,
+        handleEndGame 
+    } = useGame();
+    const { ErrorModal, OpenErrorModalProvider } = useErrorModal();
     
     return (
+        <>
         <div className="h-svh p-1 bg-green-500">
             <div className="h-1/4">
                 <div className="h-1/4 w-full flex justify-end p-2">
@@ -22,18 +31,26 @@ const App: React.FC = () => {
             </div>
             <div className="h-3/4 flex flex-col gap-5 p-1">
                 <div className="h-5/6">
-                    <UserManage game={game} action={handleAction} />
+                    <OpenErrorModalProvider>
+                        <UserManage userManager={game.userManager} action={handleAction} />
+                    </OpenErrorModalProvider>
                 </div>
                 <div className="h-1/6 flex justify-between">
-                    <GameStartBtn startGame={handleStartGame} />
+                    {game.isRunning ? (
+                        <NextStepBtn nextStep={handleNextStep} />
+                    ) : (
+                        <GameStartBtn startGame={handleStartGame} />
+                    )}
                     <GameEndBtn
-                        userNames={game.userManager.getUserNames()}
+                        userNames={game.userManager.getUserNames(true)}
                         endGame={handleEndGame}
                     />
                 </div>
             </div>
         </div>
-    )
-}
+        <ErrorModal />
+        </>
+    );
+};
 
 export default App;

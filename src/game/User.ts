@@ -13,11 +13,11 @@ export class User {
     ) {
         this.name = name;
         if (chip < 0) {
-            throw new Error("Chip cannot be negative");
+            throw new Error("0より小さい値は設定できません");
         };
         this._chip = chip;
         this.role = "";
-        this.isPlaying = true;
+        this.isPlaying = false;
     };
 
     get chip() : number {
@@ -26,7 +26,7 @@ export class User {
 
     set chip(chip: number) {
         if (chip < 0) {
-            throw new Error("Chip cannot be negative");
+            throw new Error("0より小さい値は設定できません");
         };
         this._chip = chip;
     };
@@ -38,16 +38,19 @@ export class User {
             role: this.role,
             isPlaying: this.isPlaying,
         };
-    }
+    };
 
     public play = () => {
         this.isPlaying = true;
-    }
+    };
+
+    public notPlay = () => {
+        this.isPlaying = false;
+    };
 
     public bet = (amount: number) => {
         if (amount > this._chip) {
-            console.log("Not enough chip");
-            throw new Error("Not enough chip");
+            throw new Error("見栄をはらないでください");
         };
         this._chip -= amount;
     };
@@ -57,10 +60,13 @@ export class User {
     };
 
     public fold = () => {
-        this.isPlaying = false;
+        this.notPlay();
     };
     
     public win = (amount: number) => {
+        if (!this.isPlaying) {
+            throw new Error("チキンには配当を渡せません");
+        };
         this._chip += amount;
     };
 };

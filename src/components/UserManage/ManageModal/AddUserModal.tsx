@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import ModalFrame from "../../Modal/ModalFrame"
 import InputForm from "../../InputForm";
 import Btn from "../../Btn";
+import { openErrorModalContext } from "../../../hook/useErrorModal";
 
 export type AddUserModalProps = {
     handleAddUser: (name: string, chip: number) => void;
@@ -14,10 +15,19 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
 }) => {
     const [name, setName] = useState<string>("");
     const [chip, setChip] = useState<number>(200);
+    const openErrorModal = useContext(openErrorModalContext);
 
     const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        handleAddUser(name, chip);
+
+        try {
+            handleAddUser(name, chip);
+        } catch (error) {
+            if (error instanceof Error) {
+                openErrorModal(error);
+            }
+        };
+
         closeModal();
     };
 
