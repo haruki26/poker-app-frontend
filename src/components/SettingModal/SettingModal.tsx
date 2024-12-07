@@ -1,6 +1,14 @@
-const SettingModal: React.FC = () => {
+import ModalFrame from "../Modal/ModalFrame";
+
+type Props = {
+    closeModal: () => void;
+};
+
+const SettingModal: React.FC<Props> = ({ closeModal }) => {
     return (
-        <h1>hogehoge</h1>
+        <ModalFrame modalName="Setting" closeModal={closeModal}>
+            
+        </ModalFrame>
     );
 };
 
