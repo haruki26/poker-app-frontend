@@ -6,6 +6,7 @@ import { useGame } from "./hook/useGame";
 import setting from "./../public/setting.svg"
 import { useErrorModal } from "./hook/useErrorModal";
 import NextStepBtn from "./components/GameCtlBtn/NextStepBtn";
+import SettingModal from "./components/SettingModal/SettingModal";
 
 const App: React.FC = () => {
     const {
@@ -48,6 +49,7 @@ const App: React.FC = () => {
                 </div>
             </div>
         </div>
+        <SettingModal closeModal={() => null} />
         <ErrorModal />
         </>
     );
