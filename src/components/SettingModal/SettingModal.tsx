@@ -11,8 +11,8 @@ const SettingModal: React.FC<Props> = ({ closeModal }) => {
             <div className="flex flex-col space-y-4">
                 <Btn
                     //onClick
-                    className="w-24 py-1"
-                    bgColor="bg-slate-700"
+                    className="w-40 py-1"
+                    bgColor="bg-green-700"
                     hoverBgColor="bg-slate-900"
                 >
                     <span className="text-white text-xl font-bold p-2">
@@ -22,8 +22,9 @@ const SettingModal: React.FC<Props> = ({ closeModal }) => {
                 
                 <Btn
                     //onclick
-                    className="w-24 py1"
-                    bgColor="bg-slate-700"
+                    className="w-40 py-1"
+                    bgColor="bg-green-700"
+                    
                     hoverBgColor="bg-slate-900"
                 >
                     <span className="text-white text-xl font-bold p-2">
