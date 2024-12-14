@@ -7,6 +7,7 @@ import setting from "./../public/setting.svg"
 import { useErrorModal } from "./hook/useErrorModal";
 import NextStepBtn from "./components/GameCtlBtn/NextStepBtn";
 import SettingModal from "./components/SettingModal/SettingModal";
+import { useModal } from "./components/Modal/useModal";
 
 const App: React.FC = () => {
     const {
@@ -17,15 +18,17 @@ const App: React.FC = () => {
         handleNextStep,
         handleEndGame 
     } = useGame();
+    const { Modal, openModal, closeModal} = useModal();
     const { ErrorModal, OpenErrorModalProvider } = useErrorModal();
     
     return (
         <>
         <div className="h-svh p-1 bg-green-500">
             <div className="h-1/4">
-                <div className="h-1/4 w-full flex justify-end p-2">
-                    <img src={setting} alt="setting" className="w-10 h-10" />
-                </div>
+                {/* /* <label classname={styles.label}>  */}
+                    {/* <img */}
+                    {/* src="/" */}
+                    {/* </label>                 */}
                 <div className="h-3/4">
                     <GameInfo potSize={gameState.pot} rate={gameState.currentBet} />
                 </div>
@@ -49,8 +52,10 @@ const App: React.FC = () => {
                 </div>
             </div>
         </div>
-        <SettingModal closeModal={() => null} />
         <ErrorModal />
+        <Modal>
+            <SettingModal closeModal={closeModal} />
+        </Modal>
         </>
     );
 };
