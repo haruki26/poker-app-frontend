@@ -20,7 +20,6 @@ const App: React.FC = () => {
     
     return (
         <>
-        <h1>asaisuki</h1>
         <div className="h-svh p-1 bg-green-500">
             <div className="h-1/4">
                 <div className="h-1/4 w-full flex justify-end p-2">
