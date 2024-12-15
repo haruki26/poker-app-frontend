@@ -4,15 +4,15 @@ import Btn from "../../Btn";
 
 type Props = {
     rate: number;
-    setRate: (rate: number) => void;
+    handleSetRate: (rate: number) => void;
 }
 
-const RateChangeForm: React.FC<Props> = ({ rate, setRate }) => {
+const RateChangeForm: React.FC<Props> = ({ rate, handleSetRate }) => {
     const [value, setValue] = useState<number>(rate);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setRate(rate);
+        handleSetRate(value);
     }
 
     const handleRate = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,7 +25,7 @@ const RateChangeForm: React.FC<Props> = ({ rate, setRate }) => {
         className="flex flex-col gap-2 justify-center items-center"
         onSubmit={(e) => handleSubmit(e)}>
             <div className="flex gap-4">
-                <span className="text-2xl text-center after:content-[':']">現在のレート</span>
+                <span className="text-2xl text-center after:content-[':']">現在のSB</span>
                 <span className="text-2xl text-center">{rate}</span>
             </div>
             <InputForm

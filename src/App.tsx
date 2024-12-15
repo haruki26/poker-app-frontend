@@ -57,7 +57,7 @@ const App: React.FC = () => {
         </div>
         <ErrorModal />
         <Modal>
-            <SettingModal closeModal={closeModal} />
+            <SettingModal game={game} closeModal={closeModal} />
         </Modal>
         </>
     );

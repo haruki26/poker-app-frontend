@@ -1,1 +1,0 @@
-const CangeSbBtn: React.FC = ()
