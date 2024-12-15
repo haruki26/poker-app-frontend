@@ -3,7 +3,7 @@ import GameInfo from "./components/GameInfo/GameInfo";
 import GameStartBtn from "./components/GameCtlBtn/GameStartBtn";
 import GameEndBtn from "./components/GameCtlBtn/GameEndBtn";
 import { useGame } from "./hook/useGame";
-import setting from "./../public/setting.svg"
+import setting from "/setting.svg"
 import { useErrorModal } from "./hook/useErrorModal";
 import NextStepBtn from "./components/GameCtlBtn/NextStepBtn";
 import SettingModal from "./components/SettingModal/SettingModal";
@@ -24,11 +24,12 @@ const App: React.FC = () => {
     return (
         <>
         <div className="h-svh p-1 bg-green-500">
-            <div className="h-1/4">
-                {/* /* <label classname={styles.label}>  */}
-                    {/* <img */}
-                    {/* src="/" */}
-                    {/* </label>                 */}
+            <div className="h-1/4 w-full flex flex-col p-2">
+                <div className="h-1/4 mr-0 ml-auto my-auto">
+                    <button className="h-full" onClick={openModal}>
+                        <img alt="setting" src={setting} className="w-10 h-10" />
+                    </button>
+                </div>
                 <div className="h-3/4">
                     <GameInfo potSize={gameState.pot} rate={gameState.currentBet} />
                 </div>
