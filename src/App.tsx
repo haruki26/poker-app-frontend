@@ -1,11 +1,15 @@
+import { useGame } from "./hook/useGame";
+import { useModal } from "./components/Modal/useModal";
+import { useErrorModal } from "./hook/useErrorModal";
+
 import UserManage from "./components/UserManage/UserManage";
 import GameInfo from "./components/GameInfo/GameInfo";
 import GameStartBtn from "./components/GameCtlBtn/GameStartBtn";
 import GameEndBtn from "./components/GameCtlBtn/GameEndBtn";
-import { useGame } from "./hook/useGame";
-import setting from "./../public/setting.svg"
-import { useErrorModal } from "./hook/useErrorModal";
 import NextStepBtn from "./components/GameCtlBtn/NextStepBtn";
+import SettingModal from "./components/SettingModal/SettingModal";
+
+import setting from "/setting.svg"
 
 const App: React.FC = () => {
     const {
@@ -16,14 +20,17 @@ const App: React.FC = () => {
         handleNextStep,
         handleEndGame 
     } = useGame();
+    const { Modal, openModal, closeModal} = useModal();
     const { ErrorModal, OpenErrorModalProvider } = useErrorModal();
     
     return (
         <>
         <div className="h-svh p-1 bg-green-500">
-            <div className="h-1/4">
-                <div className="h-1/4 w-full flex justify-end p-2">
-                    <img src={setting} alt="setting" className="w-10 h-10" />
+            <div className="h-1/4 w-full flex flex-col p-2">
+                <div className="h-1/4 mr-0 ml-auto my-auto">
+                    <button className="h-full" onClick={openModal}>
+                        <img alt="setting" src={setting} className="w-10 h-10" />
+                    </button>
                 </div>
                 <div className="h-3/4">
                     <GameInfo potSize={gameState.pot} rate={gameState.currentBet} />
@@ -49,6 +56,9 @@ const App: React.FC = () => {
             </div>
         </div>
         <ErrorModal />
+        <Modal>
+            <SettingModal game={game} closeModal={closeModal} />
+        </Modal>
         </>
     );
 };
