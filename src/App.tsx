@@ -1,13 +1,15 @@
+import { useGame } from "./hook/useGame";
+import { useModal } from "./components/Modal/useModal";
+import { useErrorModal } from "./hook/useErrorModal";
+
 import UserManage from "./components/UserManage/UserManage";
 import GameInfo from "./components/GameInfo/GameInfo";
 import GameStartBtn from "./components/GameCtlBtn/GameStartBtn";
 import GameEndBtn from "./components/GameCtlBtn/GameEndBtn";
-import { useGame } from "./hook/useGame";
-import setting from "/setting.svg"
-import { useErrorModal } from "./hook/useErrorModal";
 import NextStepBtn from "./components/GameCtlBtn/NextStepBtn";
 import SettingModal from "./components/SettingModal/SettingModal";
-import { useModal } from "./components/Modal/useModal";
+
+import setting from "/setting.svg"
 
 const App: React.FC = () => {
     const {
