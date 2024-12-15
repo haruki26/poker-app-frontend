@@ -142,7 +142,7 @@ export class Game {
         return this._blind;
     };
 
-    set blind(amount: number) {
+    set smallBlind(amount: number) {
         if (amount < 1) {
             throw new Error("0より小さい値は設定できません");
         };
