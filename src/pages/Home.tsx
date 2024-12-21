@@ -1,32 +1,35 @@
-import { useGame } from "../hook/useGame";
+import { fetchUserInfo } from "../api/fetchUserInfos";
 import GameInfo from "../components/GameInfo/GameInfo";
+import { useQuery } from "@tanstack/react-query";
 
 const Home: React.FC = () => {
-    const {
-        game,
-        gameState,
-    } = useGame();
+    const { data, isLoading, error } = useQuery({
+        queryKey: [],
+        queryFn: () => fetchUserInfo(),
+    });
 
-    const userInfos = game.userManager.users.map((user) => {
-        const info = user.userInfo;
-        return {
-            name: info.name,
-            chip: info.chip,
-        }
-    })
-    
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+    if (error) {
+        return <div>Error: {error.message}</div>;
+    }
+    if (!data) {
+        return <div>No data</div>;
+    }
+
     return (
-        <div className="max-w-screen-md h-full m-auto flex flex-col gap-10">
+        <div className="w-full max-w-screen-md h-full m-auto flex flex-col gap-10">
             <div className="h-1/4">
-                <GameInfo potSize={gameState.pot} rate={gameState.currentBet} />
+                <GameInfo potSize={0} rate={0} />
             </div>
             <div className="min-h-[22rem] flex bg-green-100 border border-slate-950 rounded-md">
                 <div className="px-2 py-3 h-full m-auto ">
                     <ul className="flex flex-col gap-3 h-full w-72 justify-center items-center">
-                        {userInfos.map((userInfo, index) => (
+                        {data.map((userInfo, index) => (
                             <li
                             key={index}
-                            className={`w-5/6 flex flex-col gap-3 ${(userInfos.length - 1) !== index && (
+                            className={`w-5/6 flex flex-col gap-3 ${(data.length - 1) !== index && (
                                 'after:inline-block after:w-full after:h-[0.8px] after:bg-slate-950')
                             }`}>
                                 <div className="flex justify-between text-3xl">
