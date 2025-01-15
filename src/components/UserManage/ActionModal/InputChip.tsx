@@ -40,7 +40,7 @@ const InputChip: React.FC<Props> = ({ actionType, action }) => {
             />
             <Btn
             type="submit"
-            className="p-1 w-24">
+            className="p-1 w-24 ">
                 {actionType.toUpperCase()}
             </Btn>
         </form>
