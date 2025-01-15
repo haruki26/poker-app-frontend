@@ -5,12 +5,12 @@ type Props = {
     isPlaying: boolean;
 };
 
-const ActionBtn: React.FC<Props> = ({ handleModal, isPlaying }) => {
+const SettingBtn: React.FC<Props> = ({ handleModal, isPlaying }) => {
     return (
         <Btn onClick={handleModal} className="p-2  flex  bg-gradient-to-br from-blue-300 to-gray-300 " disabled={!isPlaying}>
-            <span>Action</span>
+            <span>Setting</span>
         </Btn>
     );
 };
 
-export default ActionBtn;
+export default SettingBtn;
