@@ -14,15 +14,22 @@ const MainPage: React.FC = () => {
 
     return (
         <div className="">
-            <ActionBtn handleModal={openModal} isPlaying={true} />
+            <header className="w-full py-4 bg-black text-center text-2xl font-bold tracking-wider text-white">
+                PORKER
+            </header>
 
-            <Modal>
-                <ActionModal action={dummyAction} closeModal={closeModal} />
-                
-            </Modal>
-            <GameInfo potSize={256} rate={25600} />
+
+            <div className="">
+                <ActionBtn handleModal={openModal} isPlaying={true} />
+
+                <Modal>
+                    <ActionModal action={dummyAction} closeModal={closeModal} />
+                    
+                </Modal>
+                <GameInfo potSize={256} rate={25600} />
+            </div>
         </div>
-    );
+        );
 }
 
 export default MainPage;
