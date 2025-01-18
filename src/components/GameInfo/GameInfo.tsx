@@ -9,7 +9,7 @@ type Props = {
 
 const GameInfo: React.FC<Props> = ({ potSize, rate }) => {
     return (
-        <div className="h-full flex gap-10 justify-center items-center">
+        <div className="h-full flex gap-10  justify-center items-center">
             <div className={style}>
                 <Label label="Pot" value={potSize.toString()} />
             </div>

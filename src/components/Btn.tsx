@@ -14,7 +14,7 @@ const Btn: React.FC<Props> = ({
     children,
     className = "",
     type=undefined,
-    bgColor = "bg-green-500",
+    bgColor = "bg-blue-300",
     hoverBgColor = "bg-green-700",
     disabled = false,
 }) => {
