@@ -15,7 +15,7 @@ const MainPage: React.FC = () => {
     return (
         <div className="">
             <header className="w-full py-4 bg-black text-center text-2xl font-bold tracking-wider text-white">
-                PORKER
+                POKER
             </header>
 
 
